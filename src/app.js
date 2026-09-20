@@ -72,6 +72,17 @@
     confettiCanvas = canvas;
     canvas.className = "confetti-layer";
     canvas.setAttribute("aria-hidden", "true");
+    canvas.style.position = "fixed";
+    canvas.style.zIndex = "2147483647";
+    canvas.style.top = "0";
+    canvas.style.right = "0";
+    canvas.style.bottom = "0";
+    canvas.style.left = "0";
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.display = "block";
+    canvas.style.backgroundColor = "transparent";
+    canvas.style.pointerEvents = "none";
     width = document.documentElement.clientWidth;
     height = document.documentElement.clientHeight;
     pixelRatio = window.devicePixelRatio || 1;
@@ -286,7 +297,7 @@
 
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
-      navigator.serviceWorker.register("service-worker.v5.js").then(function () {
+      navigator.serviceWorker.register("service-worker.v6.js").then(function () {
         document.getElementById("offline-note").textContent = "Ready for offline play after this visit.";
       }, function () {
         document.getElementById("offline-note").textContent = "Offline setup was unavailable. The game still works while online.";
