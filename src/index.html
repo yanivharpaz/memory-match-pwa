@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17473a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Memory Match">
+  <meta name="description" content="A family photo memory matching game for all ages.">
+  <link rel="manifest" href="manifest.v4.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icon-192.v4.png">
+  <link rel="stylesheet" href="styles.v4.css">
+  <title>Memory Match</title>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">Family game</p>
+        <h1>Memory Match</h1>
+      </div>
+      <button id="direction-toggle" class="quiet-button" type="button" aria-label="Switch reading direction">RTL</button>
+    </header>
+
+    <section class="game-panel" aria-labelledby="game-heading">
+      <div class="game-bar">
+        <div>
+          <h2 id="game-heading">Find every pair</h2>
+          <p id="instruction" dir="auto">Turn over two cards. Matching photos stay open.</p>
+        </div>
+        <form id="game-controls" class="controls">
+          <label for="card-count">Cards</label>
+          <select id="card-count" name="card-count">
+            <option value="6">6</option>
+            <option value="8" selected>8</option>
+            <option value="10">10</option>
+            <option value="12">12</option>
+            <option value="14">14</option>
+          </select>
+          <button class="primary-button" type="submit">New game</button>
+        </form>
+      </div>
+
+      <div class="score-row" aria-label="Game progress">
+        <p><span id="moves" dir="ltr">0</span><small>Moves</small></p>
+        <p><span id="matches" dir="ltr">0 / 4</span><small>Pairs</small></p>
+        <p><span id="time" dir="ltr">0:00</span><small>Time</small></p>
+      </div>
+
+      <p id="status" class="status" dir="auto" role="status" aria-live="polite">Choose two cards to begin.</p>
+      <div id="board" class="board" role="group" aria-label="Memory card board"></div>
+
+      <noscript>
+        <p class="fallback-message">JavaScript is turned off. The game board needs JavaScript, but these controls and instructions remain available.</p>
+      </noscript>
+      <p id="offline-note" class="offline-note">Offline play is available after one online visit in supported browsers. Older iPhones and iPads can still play while online.</p>
+    </section>
+  </main>
+
+  <script src="app.v4.js" defer></script>
+</body>
+</html>

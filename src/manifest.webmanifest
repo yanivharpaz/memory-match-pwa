@@ -1,0 +1,14 @@
+{
+  "name": "Memory Match",
+  "short_name": "Memory",
+  "description": "A family photo memory matching game.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#dce9df",
+  "theme_color": "#17473a",
+  "icons": [
+    { "src": "assets/icon-192.v4.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.v4.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
