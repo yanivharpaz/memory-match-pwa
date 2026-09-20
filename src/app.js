@@ -27,6 +27,99 @@
   var startedAt = 0;
   var timerId = 0;
   var mismatchTimerId = 0;
+  var confettiCanvas = null;
+  var confettiFrameId = 0;
+
+  function requestFrame(callback) {
+    return window.requestAnimationFrame ? window.requestAnimationFrame(callback) : window.setTimeout(callback, 16);
+  }
+
+  function removeConfetti() {
+    if (confettiFrameId) {
+      if (window.cancelAnimationFrame) {
+        window.cancelAnimationFrame(confettiFrameId);
+      } else {
+        window.clearTimeout(confettiFrameId);
+      }
+    }
+    if (confettiCanvas && confettiCanvas.parentNode) {
+      confettiCanvas.parentNode.removeChild(confettiCanvas);
+    }
+    confettiCanvas = null;
+    confettiFrameId = 0;
+  }
+
+  function celebrate() {
+    var colors = ["#f1bd50", "#e96e50", "#17473a", "#72b892", "#fffdf7"];
+    var particles = [];
+    var canvas;
+    var context;
+    var width;
+    var height;
+    var pixelRatio;
+    var started;
+    var index;
+
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+    canvas = document.createElement("canvas");
+    context = canvas.getContext && canvas.getContext("2d");
+    if (!context) {
+      return;
+    }
+    removeConfetti();
+    confettiCanvas = canvas;
+    canvas.className = "confetti-layer";
+    canvas.setAttribute("aria-hidden", "true");
+    width = document.documentElement.clientWidth;
+    height = document.documentElement.clientHeight;
+    pixelRatio = window.devicePixelRatio || 1;
+    canvas.width = width * pixelRatio;
+    canvas.height = height * pixelRatio;
+    context.scale(pixelRatio, pixelRatio);
+    document.body.appendChild(canvas);
+
+    for (index = 0; index < 90; index += 1) {
+      particles.push({
+        x: Math.random() * width,
+        y: -20 - Math.random() * height * 0.35,
+        velocityX: -2.5 + Math.random() * 5,
+        velocityY: 2.5 + Math.random() * 3,
+        size: 6 + Math.random() * 7,
+        angle: Math.random() * 6.28,
+        spin: -0.12 + Math.random() * 0.24,
+        color: colors[index % colors.length]
+      });
+    }
+    started = new Date().getTime();
+
+    function draw() {
+      var elapsed = new Date().getTime() - started;
+      var particle;
+      context.clearRect(0, 0, width, height);
+      for (index = 0; index < particles.length; index += 1) {
+        particle = particles[index];
+        particle.x += particle.velocityX;
+        particle.y += particle.velocityY;
+        particle.velocityY += 0.045;
+        particle.angle += particle.spin;
+        context.save();
+        context.translate(particle.x, particle.y);
+        context.rotate(particle.angle);
+        context.fillStyle = particle.color;
+        context.fillRect(-particle.size / 2, -particle.size / 3, particle.size, particle.size * 0.66);
+        context.restore();
+      }
+      if (elapsed < 2800) {
+        confettiFrameId = requestFrame(draw);
+      } else {
+        removeConfetti();
+      }
+    }
+
+    confettiFrameId = requestFrame(draw);
+  }
 
   function shuffle(items) {
     var index;
@@ -81,6 +174,7 @@
     updateTimer();
     statusOutput.textContent = "You found every pair in " + moves + " moves!";
     board.className += " is-complete";
+    celebrate();
   }
 
   function chooseCard(event) {
@@ -153,6 +247,7 @@
     }
     window.clearInterval(timerId);
     window.clearTimeout(mismatchTimerId);
+    removeConfetti();
     pairTotal = parseInt(countSelect.value, 10) / 2;
     openCards = [];
     matchedPairs = 0;
@@ -191,7 +286,7 @@
 
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
-      navigator.serviceWorker.register("service-worker.v4.js").then(function () {
+      navigator.serviceWorker.register("service-worker.v5.js").then(function () {
         document.getElementById("offline-note").textContent = "Ready for offline play after this visit.";
       }, function () {
         document.getElementById("offline-note").textContent = "Offline setup was unavailable. The game still works while online.";

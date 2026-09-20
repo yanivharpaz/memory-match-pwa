@@ -1,4 +1,4 @@
-var CACHE_NAME = "memory-match-v4";
+var CACHE_NAME = "memory-match-v5";
 var APP_ASSETS = __CACHE_ASSETS__;
 
 self.addEventListener("install", function (event) {

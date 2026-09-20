@@ -170,6 +170,18 @@ button:focus, select:focus { outline: 3px solid var(--sun); outline-offset: 3px;
 .cover-mark:after { content: ""; position: absolute; top: 8px; left: 8px; width: 50px; height: 62px; border: 4px solid var(--sun); border-radius: 5px; }
 .is-complete .memory-card { box-shadow: 0 5px 0 var(--mint); }
 
+.confetti-layer {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
 .offline-note, .fallback-message { margin: 18px 0 0; color: #687872; font-size: 13px; text-align: center; }
 .fallback-message { padding: 12px; border: 2px solid var(--coral); color: var(--ink); }
 
