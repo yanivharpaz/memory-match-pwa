@@ -8,15 +8,15 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
     },
     {
-      "source": "/service-worker.v6.js",
+      "source": "/service-worker.v7.js",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
     },
     {
-      "source": "/(app|styles).v6.(js|css)",
+      "source": "/(app|styles).v7.(js|css)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     },
     {
-      "source": "/assets/(.*).v6.(jpg|png)",
+      "source": "/assets/(.*).v7.(jpg|png)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     }
   ]

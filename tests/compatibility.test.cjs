@@ -2,14 +2,14 @@ const assert = require("node:assert");
 const fs = require("node:fs");
 
 const html = fs.readFileSync("dist/index.html", "utf8");
-const js = fs.readFileSync("dist/app.v6.js", "utf8");
-const css = fs.readFileSync("dist/styles.v6.css", "utf8");
-const worker = fs.readFileSync("dist/service-worker.v6.js", "utf8");
+const js = fs.readFileSync("dist/app.v7.js", "utf8");
+const css = fs.readFileSync("dist/styles.v7.css", "utf8");
+const worker = fs.readFileSync("dist/service-worker.v7.js", "utf8");
 
 assert(!/<script[^>]+type=["']module["']/i.test(html), "The app must not rely on module scripts");
-assert(/<script src="app\.v6\.js" defer><\/script>/.test(html), "The classic entry point is missing");
+assert(/<script src="app\.v7\.js" defer><\/script>/.test(html), "The classic entry point is missing");
 assert(/<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">/.test(html), "The iOS viewport configuration is missing");
-assert(/<link rel="apple-touch-icon" href="assets\/icon-192\.v6\.png">/.test(html), "The iOS home-screen icon is missing");
+assert(/<link rel="apple-touch-icon" href="assets\/icon-192\.v7\.png">/.test(html), "The iOS home-screen icon is missing");
 assert(!/\b(const|let|class)\s/.test(js), "Modern declarations leaked into the browser bundle");
 assert(!/=>|`|\?\.|\?\?/.test(js), "Unsupported modern syntax leaked into the browser bundle");
 assert(!/\b(const|let|class)\s|=>|`|\?\.|\?\?/.test(worker), "Unsupported syntax leaked into the service worker");

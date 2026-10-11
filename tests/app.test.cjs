@@ -4,7 +4,7 @@ const test = require("node:test");
 const { JSDOM } = require("jsdom");
 
 const html = fs.readFileSync("dist/index.html", "utf8");
-const script = fs.readFileSync("dist/app.v6.js", "utf8");
+const script = fs.readFileSync("dist/app.v7.js", "utf8");
 
 function createGame(options) {
   const settings = options || {};
@@ -310,7 +310,7 @@ test("reports successful and failed offline setup", async function (t) {
 
     game.window.dispatchEvent(new game.window.Event("load"));
     await Promise.resolve();
-    assert.deepEqual(registrations, ["service-worker.v6.js"]);
+    assert.deepEqual(registrations, ["service-worker.v7.js"]);
     assert.equal(game.document.getElementById("offline-note").textContent, "Ready for offline play after this visit.");
     game.dom.window.close();
   });

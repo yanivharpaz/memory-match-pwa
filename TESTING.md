@@ -76,14 +76,14 @@ The gameplay suite reads:
 
 ```text
 dist/index.html
-dist/app.v6.js
+dist/app.v7.js
 ```
 
 The compatibility suite additionally reads:
 
 ```text
-dist/styles.v6.css
-dist/service-worker.v6.js
+dist/styles.v7.css
+dist/service-worker.v7.js
 ```
 
 Because both suites consume `dist`, a build must exist before either test file is run directly. The standard `npm test` command handles this automatically.
@@ -137,7 +137,7 @@ const dom = new JSDOM(html, {
 });
 ```
 
-`runScripts: "outside-only"` prevents scripts referenced by the HTML from loading automatically. The test explicitly evaluates `dist/app.v6.js` once after installing all fakes. This guarantees that application startup observes the controlled environment.
+`runScripts: "outside-only"` prevents scripts referenced by the HTML from loading automatically. The test explicitly evaluates `dist/app.v7.js` once after installing all fakes. This guarantees that application startup observes the controlled environment.
 
 The fixed HTTPS URL gives the document a stable origin and represents the secure context normally required by PWA functionality.
 
@@ -389,7 +389,7 @@ This parent test contains two subtests.
 
 The fake registration promise resolves. The test verifies:
 
-- The application requests `service-worker.v6.js`.
+- The application requests `service-worker.v7.js`.
 - The offline note reports that the app is ready for offline play after the visit.
 
 #### Failed registration
@@ -407,7 +407,7 @@ The rejection is intentionally handled by application code. It must not become a
 The generated page must:
 
 - Use a classic deferred script rather than `type="module"`.
-- Reference the versioned `app.v6.js` entry point.
+- Reference the versioned `app.v7.js` entry point.
 - Include the iOS viewport configuration and Apple touch icon.
 - Include the no-JavaScript fallback message.
 

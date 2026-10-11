@@ -301,7 +301,7 @@
 
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
-      navigator.serviceWorker.register("service-worker.v6.js").then(function () {
+      navigator.serviceWorker.register("service-worker.v7.js").then(function () {
         document.getElementById("offline-note").textContent = "Ready for offline play after this visit.";
       }, function () {
         document.getElementById("offline-note").textContent = "Offline setup was unavailable. The game still works while online.";
