@@ -191,6 +191,9 @@
   function chooseCard(event) {
     var card = event.currentTarget;
     var first;
+    if (event.type === "touchend") {
+      event.preventDefault();
+    }
     startTimer();
     if (locked || card.getAttribute("aria-pressed") === "true" || card.getAttribute("data-matched") === "true") {
       return;
@@ -245,6 +248,7 @@
     cover.innerHTML = "<span class=\"cover-mark\"></span>";
     card.appendChild(image);
     card.appendChild(cover);
+    card.addEventListener("touchend", chooseCard, false);
     card.addEventListener("click", chooseCard, false);
     return card;
   }

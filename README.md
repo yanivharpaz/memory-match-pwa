@@ -1,6 +1,6 @@
 # Memory Match
 
-A responsive family-photo memory game that works as an installable PWA while remaining usable online without service-worker support. The browser code and layout support Safari 10 and iOS 10.3.
+A responsive family-photo memory game that works as an installable PWA while remaining usable online without service-worker support. The browser code, layout, and touch controls support Safari 10 on iOS 10.3.3. JavaScript is compiled to that browser target during every production build.
 
 ## Development
 

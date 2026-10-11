@@ -148,6 +148,22 @@ test("opens one card, starts the timer once, and ignores a repeated click", func
   game.dom.window.close();
 });
 
+test("opens one card from an iOS touch without allowing a synthetic click", function () {
+  const game = createGame();
+  const first = cards(game)[0];
+  const touch = new game.window.Event("touchend", {
+    bubbles: true,
+    cancelable: true
+  });
+
+  assert.equal(first.dispatchEvent(touch), false);
+  assert.equal(touch.defaultPrevented, true);
+  assert.equal(first.getAttribute("aria-pressed"), "true");
+  assert.equal(game.document.getElementById("status").textContent, "One card open. Choose its match.");
+  assert.equal(game.intervals.size, 1);
+  game.dom.window.close();
+});
+
 test("formats elapsed time after the first card is chosen", function () {
   const game = createGame();
 

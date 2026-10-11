@@ -1,4 +1,4 @@
-import { build as bundle } from "esbuild";
+import { build as bundle, transform } from "esbuild";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
@@ -42,9 +42,21 @@ async function render(source, destination) {
   await writeFile(destination, contents);
 }
 
+async function renderJavaScript(source, destination) {
+  let contents = await readFile(source, "utf8");
+  Object.keys(replacements).forEach(function (key) { contents = contents.replace(key, replacements[key]); });
+  const result = await transform(contents, {
+    charset: "ascii",
+    legalComments: "none",
+    loader: "js",
+    target: "safari10"
+  });
+  await writeFile(destination, result.code);
+}
+
 await Promise.all([
   render("src/index.html", "dist/index.html"),
-  render("src/app.js", "dist/app.v6.js"),
+  renderJavaScript("src/app.js", "dist/app.v6.js"),
   render("src/manifest.webmanifest", "dist/manifest.v6.webmanifest"),
-  render("src/service-worker.js", "dist/service-worker.v6.js")
+  renderJavaScript("src/service-worker.js", "dist/service-worker.v6.js")
 ]);

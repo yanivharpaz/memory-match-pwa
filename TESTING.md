@@ -102,8 +102,9 @@ The command performs these steps in order:
 2. Processes the source photos into deployment-sized images.
 3. Bundles and minifies the stylesheet for Safari 10.
 4. Replaces build placeholders such as `__CARD_IMAGES__`.
-5. Writes the versioned application and service-worker assets.
-6. Runs every `tests/*.test.cjs` file with Node's test runner.
+5. Compiles the application and service-worker JavaScript for Safari 10.
+6. Writes the versioned application and service-worker assets.
+7. Runs every `tests/*.test.cjs` file with Node's test runner.
 
 To run only the gameplay unit tests while iterating:
 
@@ -399,7 +400,7 @@ The rejection is intentionally handled by application code. It must not become a
 
 ## Safari compatibility checks
 
-`tests/compatibility.test.cjs` performs static assertions against the generated assets. These are contract tests for the project's stated Safari 10 and iOS 10.3 support.
+`tests/compatibility.test.cjs` performs static assertions against the generated assets. These are contract tests for the project's stated Safari 10 and iOS 10.3.3 support.
 
 ### HTML checks
 
@@ -407,6 +408,7 @@ The generated page must:
 
 - Use a classic deferred script rather than `type="module"`.
 - Reference the versioned `app.v6.js` entry point.
+- Include the iOS viewport configuration and Apple touch icon.
 - Include the no-JavaScript fallback message.
 
 ### JavaScript syntax checks
@@ -421,7 +423,7 @@ The generated application and service worker must not contain unsupported modern
 - Optional chaining
 - Nullish coalescing
 
-These checks are intentionally conservative. They guard against source or build changes that bypass transpilation expectations.
+These checks are intentionally conservative. They guard against source or build changes that bypass the Safari 10 compilation target.
 
 ### Completion-effect checks
 
@@ -603,6 +605,7 @@ The suite is comprehensive for core game state and generated compatibility contr
 - Card open and closed states
 - Match and mismatch transitions
 - Input locking
+- Legacy iOS touch activation
 - Move and match counters
 - Timer start, formatting, and cancellation
 - Reset behavior
